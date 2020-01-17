@@ -71,7 +71,6 @@ android_library {
 
     libs: [
         "javax.obex",
-        "telephony-common",
         "services.net",
     ],
     static_libs: [
