@@ -89,7 +89,7 @@ android_library {
         "androidx.room_room-compiler-plugin",
     ],
 
-    required: ["libbluetooth"],
+    required: ["libbluetooth_qti"],
 
 
     // Add in path to Bluetooth directory because local path does not exist
