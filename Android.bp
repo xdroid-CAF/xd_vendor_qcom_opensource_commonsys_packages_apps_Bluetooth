@@ -22,7 +22,7 @@ java_defaults {
 }
 
 soong_config_module_type_import {
-    from: "device/qcom/qssi/Android.bp",
+    from: "vendor/conquer/build/soong/Android.bp",
     module_types: ["aosp_vs_qva_java_defaults"],
 }
 
