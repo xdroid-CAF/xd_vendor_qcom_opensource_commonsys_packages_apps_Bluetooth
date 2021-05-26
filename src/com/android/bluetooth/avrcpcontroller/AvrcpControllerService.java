@@ -134,7 +134,6 @@ public class AvrcpControllerService extends ProfileService {
         stopService(stopIntent);
         for (AvrcpControllerStateMachine stateMachine : mDeviceStateMap.values()) {
             stateMachine.doQuit();
-            stateMachine.quitNow();
         }
 
         sService = null;
