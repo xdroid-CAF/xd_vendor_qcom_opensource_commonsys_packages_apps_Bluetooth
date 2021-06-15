@@ -248,6 +248,10 @@ public class ScanManager {
         sendMessage(MSG_STOP_BLE_SCAN, client);
     }
 
+    void cancelScans(ScanClient client) {
+      mHandler.handleStopScan(client);
+    }
+
     void flushBatchScanResults(ScanClient client) {
         sendMessage(MSG_FLUSH_BATCH_RESULTS, client);
     }
