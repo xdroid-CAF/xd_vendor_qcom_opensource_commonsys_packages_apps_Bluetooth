@@ -284,6 +284,7 @@ public class AdapterService extends Service {
     private PbapClientService mPbapClientService;
     private HearingAidService mHearingAidService;
     private SapService mSapService;
+    private GattService mGattService;
 
     /**
      * Register a {@link ProfileService} with AdapterService.
@@ -869,6 +870,14 @@ public class AdapterService extends Service {
         setProfileServiceState(GattService.class, BluetoothAdapter.STATE_OFF);
     }
 
+    void unregGattIds() {
+      if (mGattService != null) {
+          mGattService.clearPendingOperations();
+      } else {
+          debugLog("FAILED to clear All registered Gatt Ids");
+      }
+    }
+
     void updateAdapterState(int prevState, int newState) {
         mAdapterProperties.setState(newState);
         if (mCallbacks != null) {
@@ -1270,6 +1279,7 @@ public class AdapterService extends Service {
         mPbapClientService = PbapClientService.getPbapClientService();
         mHearingAidService = HearingAidService.getHearingAidService();
         mSapService = SapService.getSapService();
+        mGattService = GattService.getGattService();
     }
 
     private boolean isAvailable() {
