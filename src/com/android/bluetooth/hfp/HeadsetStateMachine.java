@@ -600,6 +600,17 @@ public class HeadsetStateMachine extends StateMachine {
             mStateMachineCallState.mNumber = "";
             mStateMachineCallState.mType = 0;
 
+            // clear pending call states
+            while (mDelayedCSCallStates.isEmpty() != true)
+            {
+               mDelayedCSCallStates.poll();
+            }
+
+            while (mPendingCallStates.isEmpty() != true)
+            {
+               mPendingCallStates.poll();
+            }
+
             broadcastStateTransitions();
             // Remove the state machine for unbonded devices
             if (mPrevState != null
