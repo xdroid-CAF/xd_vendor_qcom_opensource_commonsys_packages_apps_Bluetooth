@@ -99,6 +99,11 @@ public class HeadsetSystemInterface {
         ComponentName component = intent.getComponent();
         Log.w(TAG, "getComponent return = " + component);
 
+        if (component == null) {
+            Log.w(TAG, "intent component is null, cannot bind to Telecom");
+            return;
+        }
+
         boolean isBoundService = mHeadsetService.bindService(intent, mPhoneProxyConnection, 0);
         Log.w(TAG, "Finished bindService with result = " + isBoundService);
         if (component == null || !isBoundService) {
