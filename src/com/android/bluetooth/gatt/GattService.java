@@ -3527,7 +3527,7 @@ public class GattService extends ProfileService {
             switch (type) {
                 case 0x02: // Partial list of 16-bit UUIDs
                 case 0x03: // Complete list of 16-bit UUIDs
-                    while (len > 1) {
+                    while ((len > 1) && (offset <= advData.length-2)) {
                         int uuid16 = advData[offset++];
                         uuid16 += (advData[offset++] << 8);
                         len -= 2;
