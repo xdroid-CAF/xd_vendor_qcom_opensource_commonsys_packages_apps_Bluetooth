@@ -2434,6 +2434,11 @@ public class GattService extends ProfileService {
         for (Integer appId : mScannerMap.getAllAppsIds()) {
             if (DBG) Log.d(TAG, "clearPendingOperations ID: " + appId);
             if (isScanClient(appId)) {
+                AppScanStats app = mScannerMap.getAppScanStatsById(appId);
+                if (app != null) {
+                    app.recordScanStop(appId);
+                }
+
                 ScanClient client = new ScanClient(appId);
                 mScanManager.cancelScans(client);
                 unregisterScanner(appId);
