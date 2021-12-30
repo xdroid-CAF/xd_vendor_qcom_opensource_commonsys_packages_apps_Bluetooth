@@ -1691,6 +1691,23 @@ public class HeadsetService extends ProfileService {
             }
             if (stateMachine.getAudioState() != BluetoothHeadset.STATE_AUDIO_DISCONNECTED) {
                 logD("connectAudio: audio is not idle for device " + device);
+                /**
+                 * add for case that device disconnecting audio has been set active again,
+                 * then send CONNECT_AUDIO if not contained in queue and should persist audio
+                 */
+                if (mActiveDevice != null && mActiveDevice.equals(device) &&
+                        stateMachine.getAudioState() == BluetoothHeadset.STATE_AUDIO_DISCONNECTING
+                        && !stateMachine.hasMessagesInQueue(HeadsetStateMachine.CONNECT_AUDIO) &&
+                        !stateMachine.hasDeferredMessagesInQueue(HeadsetStateMachine.CONNECT_AUDIO)
+                        && shouldPersistAudio()) {
+                    if (stateMachine.getIfDeviceBlacklistedForSCOAfterSLC() == true)
+                        connDelay = 0;
+
+                    Log.i(TAG, "connectAudio: active again and connect audio after "
+                            + connDelay + " ms");
+                    stateMachine.sendMessageDelayed(HeadsetStateMachine.CONNECT_AUDIO,
+                            device, connDelay);
+                }
                 return true;
             }
             if (isAudioOn()) {

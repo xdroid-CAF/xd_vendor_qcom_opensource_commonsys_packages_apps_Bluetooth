@@ -382,6 +382,14 @@ public class HeadsetStateMachine extends StateMachine {
         return  mIsBlacklistedForSCOAfterSLC;
     }
 
+    public boolean hasMessagesInQueue(int what) {
+        return super.hasMessages(what);
+    }
+
+    public boolean hasDeferredMessagesInQueue(int what) {
+        return super.hasDeferredMessages(what);
+    }
+
     /**
      * Base class for states used in this state machine to share common infrastructures
      */
